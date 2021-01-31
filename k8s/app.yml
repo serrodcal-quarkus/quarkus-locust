@@ -34,10 +34,10 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: 75M
+              memory: 10M
               cpu: 100m
             limits:
-              memory: 75M
+              memory: 10M
               cpu: 100m
 #---
 #apiVersion: autoscaling/v1
@@ -70,10 +70,10 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 40
   - type: Resource
     resource:
       name: memory
       target:
         type: Utilization
-        averageUtilization: 75
+        averageUtilization: 40

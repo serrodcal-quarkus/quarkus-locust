@@ -247,7 +247,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "vendor_cpu_systemCpuLoad_percent * 100",
+              "expr": "",
               "interval": "",
               "legendFormat": "",
               "queryType": "randomWalk",
@@ -343,7 +343,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(vendor_memoryPool_usage_bytes)",
+              "expr": "base_memory_usedHeap_bytes",
               "interval": "",
               "legendFormat": "",
               "queryType": "randomWalk",
@@ -535,7 +535,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "application_com_serrodcal_poc_GreetingResource_checksTimer_seconds{quantile=\"0.999\"}",
+              "expr": "application_com_serrodcal_poc_GreetingResource_checksTimer_seconds{quantile=\"0.999\"} * 60",
               "interval": "",
               "legendFormat": "",
               "queryType": "randomWalk",
@@ -546,7 +546,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Requests duration in seconds",
+          "title": "Requests duration in milisecond",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -631,7 +631,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(application_com_serrodcal_poc_GreetingResource_performedChecks_total[1m])",
+              "expr": "(rate(application_com_serrodcal_poc_GreetingResource_performedChecks_total[1m])/60 )*100",
               "interval": "",
               "legendFormat": "",
               "queryType": "randomWalk",
@@ -642,7 +642,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Request per minute",
+          "title": "Request per second",
           "tooltip": {
             "shared": true,
             "sort": 0,
