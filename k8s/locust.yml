@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: locust
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: locust
+  namespace: locust
+spec:
+  ports:
+    - name: web
+      port: 8089
+      targetPort: 8089
+      protocol: TCP
+  selector:
+    app: locust
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locust
+  namespace: locust
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locust
+  template:
+    metadata:
+      labels:
+        app: locust
+    spec:
+      containers:
+        - name: locust
+          image: locustio/locust:1.4.3
+          imagePullPolicy: IfNotPresent
+          #command: ["sleep"]
+          #args: ["9999"]
+          ports:
+            - containerPort: 8089
+              protocol: TCP
+          env:
+            - name: LOCUSTFILE_PATH
+              value: /home/locust/locustfile.py
+            - name: TARGET_URL
+              value: http://app.default.svc.cluster.local:8080
+          volumeMounts:
+            - name: locustfile-volume
+              mountPath: /home/locust/locustfile.py
+              subPath: locustfile.py
+      volumes:
+        - name: locustfile-volume
+          configMap:
+            name: locustfile
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: locustfile
+  namespace: locust
+data:
+  locustfile.py: |-
+    from locust import HttpUser, task, between
+
+    class QuickstartUser(HttpUser):
+        wait_time = between(5, 9)
+
+        @task
+        def hello(self):
+            self.client.get("/hello")
