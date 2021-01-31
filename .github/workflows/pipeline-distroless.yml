@@ -68,6 +68,6 @@ jobs:
           context: .
           file: ./src/main/docker/Dockerfile.distroless
           push: true
-          tags:
-            - serrodcal/quarkus-locust:latest 
-            - serrodcal/quarkus-locust:${{ steps.current-time.outputs.formattedTime }}-distroless
+          tags: |
+            serrodcal/quarkus-locust:latest 
+            serrodcal/quarkus-locust:${{ steps.current-time.outputs.formattedTime }}-distroless
