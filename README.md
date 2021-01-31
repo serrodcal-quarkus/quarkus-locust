@@ -1,3 +1,5 @@
+![Quarkus CI Native](https://github.com/serrodcal/quarkus-locust/workflows/Quarkus%20CI%20Native/badge.svg)
+
 # quarkus-locust
 
 This project is based in [quarkus-prometheus-grafana's repository](https://github.com/serrodcal/quarkus-prometheus-grafana) and the idea is to look into locust.
